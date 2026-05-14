@@ -1,0 +1,13 @@
+Options -Indexes
+
+RewriteEngine On
+RewriteBase /customer_management/
+
+# Handle CORS preflight
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^ - [L]
+
+# Route /api/* to REST API router
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/(.*)$ public/index.php [QSA,L]

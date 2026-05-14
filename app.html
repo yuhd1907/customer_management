@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM — Quản lý Khách hàng</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app/style.css?v=1.2">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast-container" id="toasts"></div>
+
+<!-- AUTH / LOGIN -->
+<div id="authWrap" class="auth-wrap" style="display:none">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <h1>AZ CRM</h1>
+      <p>Quản lý khách hàng chuyên nghiệp</p>
+    </div>
+    <div class="auth-error" id="loginError" style="display:none"></div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="text" id="loginUser" placeholder="admin@azcrm.vn" onkeypress="if(event.key==='Enter') login()">
+    </div>
+    <div class="form-group">
+      <label>Mật khẩu</label>
+      <input type="password" id="loginPass" placeholder="••••••••" onkeypress="if(event.key==='Enter') login()">
+    </div>
+    <button class="btn btn-primary" id="loginBtn" onclick="login()" style="width:100%">Đăng nhập</button>
+    <div style="margin-top:16px;text-align:center;font-size:12px;color:var(--muted)">
+      Click để thử nhanh: <br>
+      <a href="javascript:void(0)" onclick="quickFill('admin@company.com','Admin@123')">Admin</a> | 
+      <a href="javascript:void(0)" onclick="quickFill('staff@company.com','Staff@123')">Staff</a>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="appWrap" class="app-wrap">
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">Modal</h3>
+        <button class="modal-close" id="modalClose">&#x2715;</button>
+      </div>
+      <div class="modal-body" id="modalContent"></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="modalCancel">Hủy</button>
+        <button class="btn btn-primary" id="modalSave">Lưu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOMER DETAIL PANEL -->
+  <div class="detail-overlay" id="detailOverlay" onclick="closeDetailPanel(event)">
+    <div class="detail-panel" id="detailPanel">
+      <div class="detail-panel-header">
+        <div class="avatar-sm" id="dpAvatar">?</div>
+        <h3 id="dpName">Khách hàng</h3>
+        <button class="btn btn-secondary btn-sm" id="dpEditBtn">Sửa</button>
+        <button class="modal-close" onclick="closeDetailPanel(null,true)">&#x2715;</button>
+      </div>
+      <div class="detail-panel-body" id="dpBody"></div>
+    </div>
+  </div>
+
+  <nav class="topnav">
+
+    <div class="topnav-brand">CRM System</div>
+    <div class="topnav-spacer"></div>
+    <div class="user-info">
+      <div class="user-avatar" id="userInitial">?</div>
+      <div>
+        <div class="user-name" id="userName"></div>
+      </div>
+      <span id="userRole" class="user-role"></span>
+      <button class="btn-logout" onclick="logout()">Đăng xuất</button>
+    </div>
+  </nav>
+  <div class="body-wrap">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="content" id="mainContent">
+      <div id="pageContent"></div>
+    </main>
+  </div>
+</div>
+
+<script>
+function quickFill(u, p) {
+  document.getElementById('loginUser').value = u;
+  document.getElementById('loginPass').value = p;
+  login();
+}
+function closeDetailPanel(e, force) {
+  if (force || (e && e.target === document.getElementById('detailOverlay'))) {
+    document.getElementById('detailOverlay').classList.remove('open');
+  }
+}
+</script>
+<script src="app/api.js?v=1.5"></script>
+<script src="app/ui.js?v=1.5"></script>
+<script src="app/pages/customers.js?v=1.5"></script>
+<script src="app/pages/employees.js?v=1.5"></script>
+<script src="app/pages/others.js?v=1.5"></script>
+<script src="app/pages/chat.js?v=1.5"></script>
+<script src="app/pages/returns.js?v=1.5"></script>
+<script src="app/pages/customer_extras.js?v=1.5"></script>
+<script src="app/pages/dashboard.js?v=1.5"></script>
+<script src="app/main.js?v=1.5"></script>
+
+</body>
+</html>

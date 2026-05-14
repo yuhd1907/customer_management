@@ -1,0 +1,19 @@
+# IDE & System files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Database & Config
+config/database.local.php
+.env
+
+# Logs & Temp
+logs/
+temp/
+private/
+
+# Other
+*.log
+node_modules/
+dist/
