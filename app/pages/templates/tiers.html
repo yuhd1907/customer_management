@@ -1,0 +1,25 @@
+<div class="page-header">
+  <h2>Hạng Khách hàng</h2>
+  <div class="page-header-actions">
+    <button class="btn btn-primary btn-sm" onclick="Tiers.openCreate()">+ Thêm hạng</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Tên hạng</th>
+          <th>Mô tả</th>
+          <th>Chiết khấu</th>
+          <th>Số khách hàng</th>
+          <th style="text-align:right">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody id="tier-tbody">
+        <tr class="loading-row"><td colspan="5"><span class="spinner"></span> Đang tải...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>

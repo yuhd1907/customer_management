@@ -13,31 +13,9 @@ const Dashboard = {
   async init() {
     this._destroyCharts();
     const pc = document.getElementById('pageContent');
-    
-    pc.innerHTML = `
-      <div class="page-header"><h2>Thống kê & Báo cáo</h2></div>
-      <div class="stats-grid" id="dStatsGrid">
-        ${Array(4).fill('<div class="stat-card"><div class="spinner"></div></div>').join('')}
-      </div>
-      <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-top:16px">
-        <div class="card">
-          <div class="card-header"><h3>Doanh thu 6 tháng gần nhất</h3></div>
-          <div style="padding:16px;height:280px"><canvas id="revenueChart"></canvas></div>
-        </div>
-        <div class="card">
-          <div class="card-header"><h3>Khách hàng theo Hạng</h3></div>
-          <div style="padding:16px;height:280px"><canvas id="tierChart"></canvas></div>
-        </div>
-      </div>
-      <div class="card" style="margin-top:16px">
-        <div class="card-header"><h3>Top 5 Khách hàng chi tiêu</h3></div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>#</th><th>Khách hàng</th><th>SĐT</th><th>Số đơn</th><th style="text-align:right">Tổng chi tiêu</th></tr></thead>
-            <tbody id="dTopCustomers"><tr><td colspan="5" class="text-center"><span class="spinner"></span></td></tr></tbody>
-          </table>
-        </div>
-      </div>`;
+
+    // Tải HTML skeleton từ file template riêng
+    pc.innerHTML = await loadTemplate('dashboard');
 
     try {
       const res = await api.get('/statistics/dashboard');

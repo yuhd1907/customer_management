@@ -1,0 +1,59 @@
+<div class="page-header">
+  <h2>Quản lý Khách hàng</h2>
+  <div class="page-header-actions">
+    <button class="btn btn-secondary btn-sm" onclick="Customers.exportCSV()">Xuất CSV</button>
+    <button class="btn btn-secondary btn-sm" onclick="Customers.importCSV()">Nhập CSV</button>
+    <button class="btn btn-primary btn-sm" onclick="Customers.openCreate()">+ Thêm KH</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="search-bar" style="flex-wrap:wrap;gap:8px">
+    <input class="search-input" placeholder="Tìm theo tên, SĐT, email..." oninput="Customers.onSearch(this.value)">
+    <select class="filter-select" onchange="Customers.onFilter('tier_id',this.value)">
+      <option value="">Tất cả hạng</option>
+      <!-- điền bởi Customers.render() -->
+    </select>
+    <select class="filter-select" onchange="Customers.onFilter('customer_group_id',this.value)">
+      <option value="">Tất cả nhóm</option>
+      <!-- điền bởi Customers.render() -->
+    </select>
+    <select class="filter-select" onchange="Customers.onFilter('source',this.value)">
+      <option value="">Tất cả nguồn</option>
+      <option value="website">Website</option>
+      <option value="facebook">Facebook</option>
+      <option value="zalo">Zalo</option>
+      <option value="referral">Giới thiệu</option>
+      <option value="store">Cửa hàng</option>
+      <option value="other">Khác</option>
+    </select>
+    <select class="filter-select" onchange="Customers.onFilter('status',this.value)">
+      <option value="">Tất cả trạng thái</option>
+      <option value="active">Hoạt động</option>
+      <option value="inactive">Không HĐ</option>
+      <option value="blocked">Bị chặn</option>
+    </select>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Khách hàng</th>
+          <th>SĐT</th>
+          <th>Hạng / Nhóm</th>
+          <th>Nguồn</th>
+          <th>Tổng chi tiêu</th>
+          <th>Trạng thái</th>
+          <th>Ngày tạo</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody id="cust-tbody">
+        <tr class="loading-row"><td colspan="8"><span class="spinner"></span> Đang tải...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="cust-pagination"></div>
+</div>

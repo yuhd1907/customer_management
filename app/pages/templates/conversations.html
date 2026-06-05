@@ -1,0 +1,38 @@
+<div class="page-header">
+  <h2>Hội thoại Khách hàng</h2>
+  <div class="page-header-actions">
+    <button class="btn btn-primary btn-sm" onclick="Conversations.openCreate()">+ Tạo hội thoại</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="search-bar">
+    <select class="filter-select" onchange="Conversations.onFilter('status',this.value)">
+      <option value="">Tất cả</option>
+      <option value="open">Đang mở</option>
+      <option value="closed">Đã đóng</option>
+    </select>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Tiêu đề</th>
+          <th>Khách hàng</th>
+          <th>Nhân viên</th>
+          <th>Loại</th>
+          <th>Trạng thái</th>
+          <th>Chưa đọc</th>
+          <th>Cập nhật</th>
+          <th style="text-align:right">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody id="conv-tbody">
+        <tr class="loading-row"><td colspan="8"><span class="spinner"></span> Đang tải...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="conv-pagination"></div>
+</div>

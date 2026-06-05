@@ -6,41 +6,50 @@
 <title>CRM — Quản lý Khách hàng</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="app/style.css?v=1.2">
+<link rel="stylesheet" href="app/css/variables.css?v=2.1">
+<link rel="stylesheet" href="app/css/auth.css?v=2.1">
+<link rel="stylesheet" href="app/css/layout.css?v=2.1">
+<link rel="stylesheet" href="app/css/components.css?v=2.1">
+<link rel="stylesheet" href="app/css/table.css?v=2.1">
+<link rel="stylesheet" href="app/css/modal.css?v=2.1">
+<link rel="stylesheet" href="app/css/dashboard.css?v=2.1">
+<link rel="stylesheet" href="app/css/chat.css?v=2.1">
+<link rel="stylesheet" href="app/css/panel.css?v=2.1">
+<link rel="stylesheet" href="app/css/timeline.css?v=2.1">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<!-- TOAST -->
 <div class="toast-container" id="toasts"></div>
 
-<!-- AUTH / LOGIN -->
+<!-- TRANG ĐĂNG NHẬP -->
 <div id="authWrap" class="auth-wrap" style="display:none">
   <div class="auth-card">
     <div class="auth-logo">
-      <h1>AZ CRM</h1>
+      <h1>CRM</h1>
       <p>Quản lý khách hàng chuyên nghiệp</p>
     </div>
     <div class="auth-error" id="loginError" style="display:none"></div>
     <div class="form-group">
       <label>Email</label>
-      <input type="text" id="loginUser" placeholder="admin@azcrm.vn" onkeypress="if(event.key==='Enter') login()">
+      <input type="text" id="loginUser" placeholder="Nhập email..." onkeypress="if(event.key==='Enter') login()">
     </div>
     <div class="form-group">
       <label>Mật khẩu</label>
-      <input type="password" id="loginPass" placeholder="••••••••" onkeypress="if(event.key==='Enter') login()">
+      <input type="password" id="loginPass" placeholder="Nhập mật khẩu..." onkeypress="if(event.key==='Enter') login()">
     </div>
-    <button class="btn btn-primary" id="loginBtn" onclick="login()" style="width:100%">Đăng nhập</button>
-    <div style="margin-top:16px;text-align:center;font-size:12px;color:var(--muted)">
-      Click để thử nhanh: <br>
-      <a href="javascript:void(0)" onclick="quickFill('admin@company.com','Admin@123')">Admin</a> | 
-      <a href="javascript:void(0)" onclick="quickFill('staff@company.com','Staff@123')">Staff</a>
+    <button class="auth-btn" id="loginBtn" onclick="login()">Đăng nhập</button>
+    <div class="auth-divider">Tài khoản thử nghiệm:</div>
+    <div class="auth-quick">
+      <a onclick="quickFill('admin@company.com','Admin@123')">Admin</a>
+      <a onclick="quickFill('staff@company.com','Staff@123')">Nhân viên</a>
     </div>
   </div>
 </div>
 
-<!-- APP -->
+<!-- ỨNG DỤNG CHÍNH -->
 <div id="appWrap" class="app-wrap">
+
   <!-- MODAL -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
@@ -56,7 +65,7 @@
     </div>
   </div>
 
-  <!-- CUSTOMER DETAIL PANEL -->
+  <!-- PANEL CHI TIẾT KHÁCH HÀNG -->
   <div class="detail-overlay" id="detailOverlay" onclick="closeDetailPanel(event)">
     <div class="detail-panel" id="detailPanel">
       <div class="detail-panel-header">
@@ -69,9 +78,11 @@
     </div>
   </div>
 
+  <!-- TOP NAV -->
   <nav class="topnav">
-
-    <div class="topnav-brand">CRM System</div>
+    <div class="topnav-brand">
+      <span class="brand-name">CRM</span>
+    </div>
     <div class="topnav-spacer"></div>
     <div class="user-info">
       <div class="user-avatar" id="userInitial">?</div>
@@ -82,6 +93,7 @@
       <button class="btn-logout" onclick="logout()">Đăng xuất</button>
     </div>
   </nav>
+
   <div class="body-wrap">
     <nav class="sidebar" id="sidebar"></nav>
     <main class="content" id="mainContent">
@@ -102,16 +114,16 @@ function closeDetailPanel(e, force) {
   }
 }
 </script>
-<script src="app/api.js?v=1.5"></script>
-<script src="app/ui.js?v=1.5"></script>
-<script src="app/pages/customers.js?v=1.5"></script>
-<script src="app/pages/employees.js?v=1.5"></script>
-<script src="app/pages/others.js?v=1.5"></script>
-<script src="app/pages/chat.js?v=1.5"></script>
-<script src="app/pages/returns.js?v=1.5"></script>
-<script src="app/pages/customer_extras.js?v=1.5"></script>
-<script src="app/pages/dashboard.js?v=1.5"></script>
-<script src="app/main.js?v=1.5"></script>
+<script src="app/api.js?v=2.1"></script>
+<script src="app/ui.js?v=2.1"></script>
+<script src="app/pages/customers.js?v=2.1"></script>
+<script src="app/pages/employees.js?v=2.1"></script>
+<script src="app/pages/others.js?v=2.1"></script>
+<script src="app/pages/chat.js?v=2.1"></script>
+<script src="app/pages/returns.js?v=2.1"></script>
+<script src="app/pages/customer_extras.js?v=2.1"></script>
+<script src="app/pages/dashboard.js?v=2.1"></script>
+<script src="app/main.js?v=2.1"></script>
 
 </body>
 </html>

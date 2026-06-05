@@ -4,19 +4,10 @@
 
 // ── NHÓM KHÁCH HÀNG ───────────────────────────────────────
 const CustomerGroups = {
-  init() { this.render(); this.load(); },
+  async init() { await this.render(); this.load(); },
 
-  render() {
-    document.getElementById('pageContent').innerHTML = `
-      <div class="page-header">
-        <h2>Nhóm Khách hàng</h2>
-        <div class="page-header-actions">
-          <button class="btn btn-primary btn-sm" onclick="CustomerGroups.openCreate()">+ Tạo nhóm</button>
-        </div>
-      </div>
-      <div id="cg-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">
-        <div style="text-align:center;padding:40px;color:var(--muted);grid-column:1/-1"><span class="spinner"></span></div>
-      </div>`;
+  async render() {
+    document.getElementById('pageContent').innerHTML = await loadTemplate('groups');
   },
 
   async load() {
@@ -116,25 +107,13 @@ const CustomerGroups = {
 const Birthdays = {
   _month: new Date().getMonth() + 1,
 
-  init() { this.render(); this.load(); },
+  async init() { await this.render(); this.load(); },
 
-  render() {
-    const months = ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6',
-                    'Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
-    document.getElementById('pageContent').innerHTML = `
-      <div class="page-header">
-        <h2>Sinh nhật Khách hàng</h2>
-        <div class="page-header-actions">
-          <select class="filter-select" onchange="Birthdays._changeMonth(this.value)">
-            ${months.map((m,i) => `<option value="${i+1}" ${this._month===i+1?'selected':''}>${m}</option>`).join('')}
-          </select>
-        </div>
-      </div>
-      <div class="card">
-        <div id="bday-body">
-          <div style="text-align:center;padding:40px"><span class="spinner"></span></div>
-        </div>
-      </div>`;
+  async render() {
+    document.getElementById('pageContent').innerHTML = await loadTemplate('birthdays');
+    // Đồng bộ tháng được chọn vào select
+    const sel = document.getElementById('bday-month-sel');
+    if (sel) sel.value = this._month;
   },
 
   _changeMonth(m) { this._month = parseInt(m); this.load(); },
@@ -197,31 +176,10 @@ const Birthdays = {
 
 // ── LỊCH NHẮC VIỆC (UPCOMING TASKS) ──────────────────────
 const UpcomingTasks = {
-  init() { this.render(); this.load(); },
+  async init() { await this.render(); this.load(); },
 
-  render() {
-    document.getElementById('pageContent').innerHTML = `
-      <div class="page-header"><h2>Lịch nhắc việc</h2></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-        <div class="card">
-          <div class="card-header"><h3>Sắp tới (7 ngày)</h3></div>
-          <div id="task-upcoming"></div>
-        </div>
-        <div class="card">
-          <div class="card-header"><h3>Hướng dẫn sử dụng</h3></div>
-          <div style="padding:20px;font-size:13px;color:var(--text2);line-height:1.8">
-            <div style="margin-bottom:10px">Lịch nhắc việc giúp bạn theo dõi các công việc cần làm với từng khách hàng.</div>
-            <div style="font-weight:600;margin-bottom:6px">Cách tạo lịch nhắc:</div>
-            <div>1. Vào trang <strong>Khách hàng</strong></div>
-            <div>2. Click vào tên khách hàng</div>
-            <div>3. Chọn tab <strong>"Lịch nhắc"</strong></div>
-            <div>4. Nhấn nút <strong>"+ Thêm nhắc"</strong></div>
-            <div style="margin-top:12px;padding:10px;background:var(--primary-l);border-radius:7px;color:var(--primary)">
-              Lịch nhắc có 3 mức độ ưu tiên: <strong>Cao</strong>, Thường, Thấp
-            </div>
-          </div>
-        </div>
-      </div>`;
+  async render() {
+    document.getElementById('pageContent').innerHTML = await loadTemplate('tasks');
   },
 
   async load() {

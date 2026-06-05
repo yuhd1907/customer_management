@@ -1,28 +1,8 @@
 const Products = {
   state: { page: 1, search: '', status: '' },
-  init() { this.render(); this.load(); },
-  render() {
-    document.getElementById('pageContent').innerHTML = `
-      <div class="page-header">
-        <h2>Quản lý Sản phẩm</h2>
-        <div class="page-header-actions">
-          <button class="btn btn-primary btn-sm" onclick="Products.openCreate()">+ Thêm sản phẩm</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="search-bar">
-          <input class="search-input" placeholder="Tìm kiếm tên sản phẩm, SKU..." oninput="Products.onSearch(this.value)">
-          <select class="filter-select" onchange="Products.onFilter('status',this.value)">
-            <option value="">Tất cả</option><option value="active">Đang bán</option><option value="inactive">Ngừng bán</option>
-          </select>
-        </div>
-        <div class="table-wrap">
-          <table><thead><tr>
-            <th>Sản phẩm</th><th>SKU</th><th>Giá bán</th><th>Tồn kho</th><th>Trạng thái</th><th style="text-align:right">Thao tác</th>
-          </tr></thead><tbody id="prod-tbody"></tbody></table>
-        </div>
-        <div id="prod-pagination"></div>
-      </div>`;
+  async init() { await this.render(); this.load(); },
+  async render() {
+    document.getElementById('pageContent').innerHTML = await loadTemplate('products');
   },
   _t: null,
   onSearch(v) { clearTimeout(this._t); this._t = setTimeout(()=>{ this.state.search=v; this.state.page=1; this.load(); },400); },
@@ -101,28 +81,9 @@ const Products = {
 const Orders = {
   state: { page: 1, status: '' },
   _items: [],
-  init() { this._items=[]; this.render(); this.load(); },
-  render() {
-    document.getElementById('pageContent').innerHTML = `
-      <div class="page-header"><h2>Quản lý Đơn hàng</h2>
-        <div class="page-header-actions"><button class="btn btn-primary btn-sm" onclick="Orders.openCreate()">+ Tạo đơn hàng</button></div>
-      </div>
-      <div class="card">
-        <div class="search-bar">
-          <select class="filter-select" onchange="Orders.onFilter('status',this.value)">
-            <option value="">Tất cả trạng thái</option>
-            <option value="pending">Chờ xử lý</option><option value="confirmed">Đã xác nhận</option>
-            <option value="shipping">Đang giao</option><option value="completed">Hoàn thành</option>
-            <option value="cancelled">Đã hủy</option>
-          </select>
-        </div>
-        <div class="table-wrap">
-          <table><thead><tr>
-            <th>Mã đơn</th><th>Khách hàng</th><th>Nhân viên</th><th>Tổng tiền</th><th>Trạng thái</th><th>Ngày tạo</th><th style="text-align:right">Cập nhật TT</th>
-          </tr></thead><tbody id="ord-tbody"></tbody></table>
-        </div>
-        <div id="ord-pagination"></div>
-      </div>`;
+  async init() { this._items=[]; await this.render(); this.load(); },
+  async render() {
+    document.getElementById('pageContent').innerHTML = await loadTemplate('orders');
   },
   onFilter(k,v) { this.state[k]=v; this.state.page=1; this.load(); },
   async load() {
@@ -198,22 +159,9 @@ const Orders = {
 };
 
 const Tiers = {
-  init() { this.render(); this.load(); },
-  render() {
-    document.getElementById('pageContent').innerHTML = `
-      <div class="page-header">
-        <h2>Hạng Khách hàng</h2>
-        <div class="page-header-actions">
-          <button class="btn btn-primary btn-sm" onclick="Tiers.openCreate()">+ Thêm hạng</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="table-wrap">
-          <table><thead><tr>
-            <th>Tên hạng</th><th>Mô tả</th><th>Chiết khấu</th><th>Số khách hàng</th><th style="text-align:right">Thao tác</th>
-          </tr></thead><tbody id="tier-tbody"></tbody></table>
-        </div>
-      </div>`;
+  async init() { await this.render(); this.load(); },
+  async render() {
+    document.getElementById('pageContent').innerHTML = await loadTemplate('tiers');
   },
   async load() {
     const tbody = document.getElementById('tier-tbody');
@@ -266,25 +214,9 @@ const Tiers = {
 const Conversations = {
   state: { page: 1, status: '' },
   _empList: [],
-  init() { this.render(); this.load(); },
-  render() {
-    document.getElementById('pageContent').innerHTML = `
-      <div class="page-header"><h2>Hội thoại Khách hàng</h2>
-        <div class="page-header-actions"><button class="btn btn-primary btn-sm" onclick="Conversations.openCreate()">+ Tạo hội thoại</button></div>
-      </div>
-      <div class="card">
-        <div class="search-bar">
-          <select class="filter-select" onchange="Conversations.onFilter('status',this.value)">
-            <option value="">Tất cả</option><option value="open">Đang mở</option><option value="closed">Đã đóng</option>
-          </select>
-        </div>
-        <div class="table-wrap">
-          <table><thead><tr>
-            <th>Tiêu đề</th><th>Khách hàng</th><th>Nhân viên</th><th>Loại</th><th>Trạng thái</th><th>Chưa đọc</th><th>Cập nhật</th><th style="text-align:right">Thao tác</th>
-          </tr></thead><tbody id="conv-tbody"></tbody></table>
-        </div>
-        <div id="conv-pagination"></div>
-      </div>`;
+  async init() { await this.render(); this.load(); },
+  async render() {
+    document.getElementById('pageContent').innerHTML = await loadTemplate('conversations');
   },
   onFilter(k,v) { this.state[k]=v; this.state.page=1; this.load(); },
   async _loadEmps() {

@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h2>Quản lý Đơn hàng</h2>
+  <div class="page-header-actions">
+    <button class="btn btn-primary btn-sm" onclick="Orders.openCreate()">+ Tạo đơn hàng</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="search-bar">
+    <select class="filter-select" onchange="Orders.onFilter('status',this.value)">
+      <option value="">Tất cả trạng thái</option>
+      <option value="pending">Chờ xử lý</option>
+      <option value="confirmed">Đã xác nhận</option>
+      <option value="shipping">Đang giao</option>
+      <option value="completed">Hoàn thành</option>
+      <option value="cancelled">Đã hủy</option>
+    </select>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Mã đơn</th>
+          <th>Khách hàng</th>
+          <th>Nhân viên</th>
+          <th>Tổng tiền</th>
+          <th>Trạng thái</th>
+          <th>Ngày tạo</th>
+          <th style="text-align:right">Cập nhật TT</th>
+        </tr>
+      </thead>
+      <tbody id="ord-tbody">
+        <tr class="loading-row"><td colspan="7"><span class="spinner"></span> Đang tải...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="ord-pagination"></div>
+</div>

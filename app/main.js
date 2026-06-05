@@ -44,7 +44,7 @@ function buildSidebar() {
   if (role === 'admin') {
     items = [
       { section: 'Tổng quan' },
-      { id: 'dashboard', label: 'Bảng điều khiển' },
+      { id: 'dashboard',       label: 'Bảng điều khiển' },
       { section: 'Hệ thống' },
       { id: 'admin-employees', label: 'Quản lý Nhân viên' },
     ];
@@ -52,18 +52,18 @@ function buildSidebar() {
     // manager & staff
     items = [
       { section: 'Tổng quan' },
-      { id: 'dashboard',      label: 'Thống kê & Báo cáo' },
+      { id: 'dashboard',       label: 'Thống kê & Báo cáo' },
       { section: 'Khách hàng' },
-      { id: 'customers',      label: 'Danh sách KH' },
-      { id: 'tiers',          label: 'Hạng khách hàng' },
-      { id: 'customer-groups',label: 'Nhóm khách hàng' },
-      { id: 'birthdays',      label: 'Sinh nhật tháng này' },
+      { id: 'customers',       label: 'Danh sách KH' },
+      { id: 'tiers',           label: 'Hạng khách hàng' },
+      { id: 'customer-groups', label: 'Nhóm khách hàng' },
+      { id: 'birthdays',       label: 'Sinh nhật tháng này' },
       { section: 'Kinh doanh' },
-      { id: 'orders',         label: 'Đơn hàng' },
-      { id: 'returns',        label: 'Đổi / Hoàn trả' },
+      { id: 'orders',          label: 'Đơn hàng' },
+      { id: 'returns',         label: 'Đổi / Hoàn trả' },
       { section: 'Hỗ trợ' },
-      { id: 'chat',           label: 'Chăm sóc KH (CSKH)', badge: true },
-      { id: 'upcoming-tasks', label: 'Lịch nhắc việc' },
+      { id: 'chat',            label: 'Chăm sóc KH (CSKH)', badge: true },
+      { id: 'upcoming-tasks',  label: 'Lịch nhắc việc' },
     ];
   }
 

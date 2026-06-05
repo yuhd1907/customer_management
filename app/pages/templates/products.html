@@ -1,0 +1,37 @@
+<div class="page-header">
+  <h2>Quản lý Sản phẩm</h2>
+  <div class="page-header-actions">
+    <button class="btn btn-primary btn-sm" onclick="Products.openCreate()">+ Thêm sản phẩm</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="search-bar">
+    <input class="search-input" placeholder="Tìm kiếm tên sản phẩm, SKU..." oninput="Products.onSearch(this.value)">
+    <select class="filter-select" onchange="Products.onFilter('status',this.value)">
+      <option value="">Tất cả</option>
+      <option value="active">Đang bán</option>
+      <option value="inactive">Ngừng bán</option>
+    </select>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Sản phẩm</th>
+          <th>SKU</th>
+          <th>Giá bán</th>
+          <th>Tồn kho</th>
+          <th>Trạng thái</th>
+          <th style="text-align:right">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody id="prod-tbody">
+        <tr class="loading-row"><td colspan="6"><span class="spinner"></span> Đang tải...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="prod-pagination"></div>
+</div>

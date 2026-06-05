@@ -1,5 +1,5 @@
 // ──────────────────────────────────────────────────────────
-// customers.js — Quản lý Khách hàng + Detail Panel (AZ CRM)
+// customers.js — Quản lý Khách hàng + Detail Panel (CRM)
 // ──────────────────────────────────────────────────────────
 
 // Helpers
@@ -19,54 +19,21 @@ const Customers = {
         api.get('/customer-tags').then(r => r.data || []),
       ]);
     } catch(e) {}
-    this.render();
+    await this.render();
     this.load();
   },
 
-  render() {
-    const tierOpts  = this._tiers.map(t  => `<option value="${t.id}">${t.name}</option>`).join('');
-    const groupOpts = this._groups.map(g => `<option value="${g.id}">${g.name}</option>`).join('');
-    document.getElementById('pageContent').innerHTML = `
-      <div class="page-header">
-        <h2>Quản lý Khách hàng</h2>
-        <div class="page-header-actions">
-          <button class="btn btn-secondary btn-sm" onclick="Customers.exportCSV()">Xuất CSV</button>
-          <button class="btn btn-secondary btn-sm" onclick="Customers.importCSV()">Nhập CSV</button>
-          <button class="btn btn-primary btn-sm" onclick="Customers.openCreate()">+ Thêm KH</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="search-bar" style="flex-wrap:wrap;gap:8px">
-          <input class="search-input" placeholder="Tìm theo tên, SĐT, email..." oninput="Customers.onSearch(this.value)">
-          <select class="filter-select" onchange="Customers.onFilter('tier_id',this.value)">
-            <option value="">Tất cả hạng</option>${tierOpts}
-          </select>
-          <select class="filter-select" onchange="Customers.onFilter('customer_group_id',this.value)">
-            <option value="">Tất cả nhóm</option>${groupOpts}
-          </select>
-          <select class="filter-select" onchange="Customers.onFilter('source',this.value)">
-            <option value="">Tất cả nguồn</option>
-            <option value="website">Website</option>
-            <option value="facebook">Facebook</option>
-            <option value="zalo">Zalo</option>
-            <option value="referral">Giới thiệu</option>
-            <option value="store">Cửa hàng</option>
-            <option value="other">Khác</option>
-          </select>
-          <select class="filter-select" onchange="Customers.onFilter('status',this.value)">
-            <option value="">Tất cả trạng thái</option>
-            <option value="active">Hoạt động</option>
-            <option value="inactive">Không HĐ</option>
-            <option value="blocked">Bị chặn</option>
-          </select>
-        </div>
-        <div class="table-wrap">
-          <table><thead><tr>
-            <th>Khách hàng</th><th>SĐT</th><th>Hạng / Nhóm</th><th>Nguồn</th><th>Tổng chi tiêu</th><th>Trạng thái</th><th>Ngày tạo</th><th>Thao tác</th>
-          </tr></thead><tbody id="cust-tbody"></tbody></table>
-        </div>
-        <div id="cust-pagination"></div>
-      </div>`;
+  async render() {
+    // Tải HTML skeleton từ file template riêng
+    document.getElementById('pageContent').innerHTML = await loadTemplate('customers');
+
+    // Điền động các options filter (cần dữ liệu từ API)
+    const tierSel  = document.querySelector('[onchange*="tier_id"]');
+    const groupSel = document.querySelector('[onchange*="customer_group_id"]');
+    if (tierSel)  tierSel.insertAdjacentHTML('beforeend',
+      this._tiers.map(t => `<option value="${t.id}">${t.name}</option>`).join(''));
+    if (groupSel) groupSel.insertAdjacentHTML('beforeend',
+      this._groups.map(g => `<option value="${g.id}">${g.name}</option>`).join(''));
   },
 
   _t: null,
@@ -267,7 +234,7 @@ const Customers = {
           <td><span class="text-muted" style="font-size:12px">${typeLabel(c.type)}</span></td>
           <td>${badge(c.status, { open: 'Đang mở', closed: 'Đã đóng' }[c.status])}</td>
           <td>${fmtDate(c.updated_at)}</td>
-          <td><button class="btn btn-secondary btn-sm" onclick="document.getElementById('detailOverlay').classList.remove('open');navigate('chat');setTimeout(()=>Chat.openConv(${c.id}),300)">Mở chat</button></td>
+          <td><button class="btn btn-secondary btn-sm" onclick="document.getElementById('detailOverlay').classList.remove('open');sessionStorage.setItem('open_conv','${c.id}');window.location.href='chat.html'">Mở chat</button></td>
         </tr>`).join('')}</tbody></table>
         <div style="padding:12px 16px">
           <button class="btn btn-primary btn-sm" onclick="Customers._createConvForCust(${customerId})">+ Tạo hội thoại mới</button>
@@ -296,8 +263,8 @@ const Customers = {
       toast('Tạo hội thoại thành công', 'success');
       closeModal();
       document.getElementById('detailOverlay').classList.remove('open');
-      navigate('chat');
-      setTimeout(() => Chat.openConv(res.data.id), 400);
+      sessionStorage.setItem('open_conv', res.data.id);
+      window.location.href = 'chat.html';
     } catch(e) { toast(e.message, 'error'); }
   },
 

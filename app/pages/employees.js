@@ -1,33 +1,9 @@
 const Employees = {
   state: { page: 1, search: '', role: '', status: '' },
-  init() { this.render(); this.load(); },
-  render() {
-    document.getElementById('pageContent').innerHTML = `
-      <div class="page-header">
-        <h2>Quản lý Nhân viên</h2>
-        <div class="page-header-actions">
-          <button class="btn btn-primary btn-sm" onclick="Employees.openCreate()">+ Thêm nhân viên</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="search-bar">
-          <input class="search-input" placeholder="Tìm kiếm tên, username, email..." oninput="Employees.onSearch(this.value)">
-          <select class="filter-select" onchange="Employees.onFilter('role',this.value)">
-            <option value="">Tất cả vai trò</option>
-            <option value="admin">Admin</option><option value="manager">Manager</option><option value="staff">Staff</option>
-          </select>
-          <select class="filter-select" onchange="Employees.onFilter('status',this.value)">
-            <option value="">Tất cả trạng thái</option>
-            <option value="active">Hoạt động</option><option value="inactive">Không hoạt động</option><option value="locked">Đã khóa</option>
-          </select>
-        </div>
-        <div class="table-wrap">
-          <table><thead><tr>
-            <th>Nhân viên</th><th>Username</th><th>Email</th><th>Vị trí</th><th>Vai trò</th><th>Trạng thái</th><th>Đăng nhập cuối</th><th style="text-align:right">Thao tác</th>
-          </tr></thead><tbody id="emp-tbody"></tbody></table>
-        </div>
-        <div id="emp-pagination"></div>
-      </div>`;
+  async init() { await this.render(); this.load(); },
+  async render() {
+    // Tải HTML skeleton từ file template riêng
+    document.getElementById('pageContent').innerHTML = await loadTemplate('employees');
   },
   _t: null,
   onSearch(v) { clearTimeout(this._t); this._t = setTimeout(()=>{ this.state.search=v; this.state.page=1; this.load(); },400); },

@@ -5,43 +5,17 @@
 const Returns = {
   state: { page: 1, status: '', request_type: '' },
 
-  init() { this.render(); this.load(); },
+  init() { this.render().then(() => this.load()); },
 
-  render() {
-    document.getElementById('pageContent').innerHTML = `
-      <div class="page-header">
-        <h2>Đổi / Hoàn trả hàng</h2>
-        <div class="page-header-actions">
-          <button class="btn btn-primary btn-sm" onclick="Returns.openCreate()">+ Tạo yêu cầu</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="search-bar">
-          <select class="filter-select" onchange="Returns.onFilter('status',this.value)">
-            <option value="">Tất cả trạng thái</option>
-            <option value="pending">Chờ duyệt</option>
-            <option value="approved">Đã duyệt</option>
-            <option value="rejected">Từ chối</option>
-            <option value="completed">Hoàn thành</option>
-          </select>
-          <select class="filter-select" onchange="Returns.onFilter('request_type',this.value)">
-            <option value="">Tất cả loại</option>
-            <option value="return">Hoàn trả</option>
-            <option value="exchange">Đổi hàng</option>
-          </select>
-        </div>
-        <div class="table-wrap">
-          <table><thead><tr>
-            <th>Mã đơn</th><th>Khách hàng</th><th>Loại</th><th>Lý do</th><th>Nhân viên</th><th>Trạng thái</th><th>Ngày tạo</th><th style="text-align:right">Thao tác</th>
-          </tr></thead><tbody id="ret-tbody"></tbody></table>
-        </div>
-        <div id="ret-pagination"></div>
-      </div>`;
+  async render() {
+    // Tải HTML skeleton từ file template riêng
+    document.getElementById('pageContent').innerHTML = await loadTemplate('returns');
   },
 
   onFilter(k, v) { this.state[k] = v; this.state.page = 1; this.load(); },
 
   async load() {
+
     const tbody = document.getElementById('ret-tbody');
     if (!tbody) return;
     tbody.innerHTML = `<tr class="loading-row"><td colspan="8"><span class="spinner"></span> Đang tải...</td></tr>`;
