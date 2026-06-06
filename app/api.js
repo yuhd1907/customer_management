@@ -12,8 +12,9 @@
  *   api.delete('/customers/5')
  */
 
-/** URL gốc của toàn bộ API. Nếu đổi tên thư mục dự án, sửa ở đây. */
-const API_BASE = '/customer_management/api';
+/** Lấy thư mục gốc hiện tại (VD: '/customer_management' hoặc '') */
+const BASE_PATH = window.location.pathname.replace(/\/(index\.html)?$/, '');
+const API_BASE = BASE_PATH + '/api';
 
 const api = {
   BASE: API_BASE,
@@ -71,7 +72,7 @@ const api = {
     // → Xóa token cũ, tải lại trang để hiện màn hình đăng nhập
     if (res.status === 401) {
       localStorage.removeItem('crm_token');
-      window.location.href = '/customer_management/index.html';
+      window.location.href = BASE_PATH + '/index.html';
       throw { status: 401, message: 'Phiên đăng nhập hết hạn' };
     }
 

@@ -15,7 +15,7 @@
 define('DB_HOST',    '127.0.0.1');          // Địa chỉ MySQL server (localhost)
 define('DB_NAME',    'customer_management'); // Tên database
 define('DB_USER',    'root');               // Username MySQL
-define('DB_PASS',    '1907');              // Mật khẩu MySQL — ĐỔI KHI DEPLOY
+define('DB_PASS',    '');              // Mật khẩu MySQL — ĐỔI KHI DEPLOY
 define('DB_CHARSET', 'utf8mb4');            // Charset hỗ trợ đầy đủ Unicode + emoji
 
 // ── Cấu hình JWT ───────────────────────────────────────────────

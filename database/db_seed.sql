@@ -11,17 +11,17 @@ INSERT INTO customer_tiers (name, description, discount_percent) VALUES
 -- Admin account (password: Admin@123)
 INSERT INTO employees (staff_code, full_name, username, email, phone, password_hash, role, status, position)
 VALUES ('EMP001', 'Nguyễn Văn Admin', 'admin', 'admin@company.com', '0900000001',
-    '$2y$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'active', 'System Administrator');
+    '$2y$12$EjY2CCKDItWvEE6GzxaMRObTsMigX6/0xYdxESV0uCimAGMnPd3pC', 'admin', 'active', 'System Administrator');
 
 -- Manager account (password: Manager@123)
 INSERT INTO employees (staff_code, full_name, username, email, phone, password_hash, role, status, position, created_by)
 VALUES ('EMP002', 'Trần Thị Manager', 'manager01', 'manager@company.com', '0900000002',
-    '$2y$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'manager', 'active', 'Sales Manager', 1);
+    '$2y$12$oTmXF73QszU3ZdLw1Ip2hexl41wvgtFiriVhny4pBysdiwcPzmXjS', 'manager', 'active', 'Sales Manager', 1);
 
 -- Staff account (password: Staff@123)
 INSERT INTO employees (staff_code, full_name, username, email, phone, password_hash, role, status, position, created_by)
 VALUES ('EMP003', 'Lê Văn Staff', 'staff01', 'staff@company.com', '0900000003',
-    '$2y$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'staff', 'active', 'Customer Support', 1);
+    '$2y$12$acuwvkJ/Km7dblLSQa7pzu9/G/nYmeh/9ZPQCcIgJR.TyiH32qI8u', 'staff', 'active', 'Customer Support', 1);
 
 -- Sample Customers
 INSERT INTO customers (tier_id, assigned_employee_id, full_name, phone, email, gender, address, status, created_by) VALUES
